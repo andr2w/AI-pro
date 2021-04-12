@@ -19,19 +19,20 @@ class Config(object):
         
         # Data set path
         # train dataset path
-        self.train_path = dataset + '/train.txt'
+        self.train_path = dataset + '/CONLL003/train.txt'
         # test dataset path 
-        self.test_path = dataset + '/test.txt'
+        self.test_path = dataset + '/CONLL003/test.txt'
         # dev dataset path 
-        self.dev_path = dataset + '/dev.txt'
+        self.dev_path = dataset + '/CONLL003/valid.txt'
 
         # label
-        self.class_list = [x.strip() for x in open(dataset + '/class.txt').readlines()]
+        self.class_list = [x.strip() for x in open(dataset + '/CONLL003/class.txt').readlines()]
+
         # num of labels 
         self.num_classes = len(self.class_list)
 
         # saved path 
-        self.save_path = '/save_dir/' + self.model_name + '.ckpt'
+        self.save_path = 'save_dir/' + self.model_name + '.ckpt'
 
         # auto choose cpu or gpu 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -48,7 +49,7 @@ class Config(object):
         # badding size 
         # the max length of each word 
         # long cut, short add 
-        self.pad_size = 12
+        self.pad_size = 5
 
         # learning _rate 
         self.learning_rate = 1e-5
@@ -66,7 +67,7 @@ class Config(object):
         self.rnn_hidden = 256
         
         # rnn layers
-        self.rnn_layers = 2
+        self.num_layers = 2
 
         # dropout
         self.dropout = 0.5

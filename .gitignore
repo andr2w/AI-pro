@@ -3,3 +3,5 @@
 .ipynb_checkpoints
 data
 BERT_BASE
+__pycache__
+save_dir
