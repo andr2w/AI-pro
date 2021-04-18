@@ -72,6 +72,9 @@ class Config(object):
         # dropout
         self.dropout = 0.5
 
+        #for tensorboard
+        self.log_path = dataset + '/log/' + self.model_name
+
 
 class Model(nn.Module):
 

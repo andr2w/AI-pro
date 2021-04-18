@@ -12,6 +12,7 @@ import torch.nn as nn
 import torch.nn.functional as f 
 from sklearn import metrics
 from pytorch_pretrained.optimization import BertAdam
+from tensorboardX import SummaryWriter
 
 
 
@@ -37,7 +38,8 @@ def train(config, model, train_iter, dev_iter, test_iter):
     total_batch = 0 # record how may batchs
     dev_best_loss = float('inf')
     last_imporve = 0 # record last time dev loss 
-    flag = False 
+    flag = False
+    writer = SummaryWriter(log_dir=config.log_path + '/' + time.strftime('%m-%d_%H.%M', time.localtime())) 
     model.train()
 
     for epoch in range(config.num_epochs):
@@ -77,6 +79,11 @@ def train(config, model, train_iter, dev_iter, test_iter):
                                  dev_acc,
                                  time_dif,
                                  imporve))
+
+                writer.add_scalar("loss/train", loss.item(), total_batch)
+                writer.add_scalar("loss/dev", dev_loss, total_batch)
+                writer.add_scalar("acc/train", train_acc, total_batch)
+                writer.add_scalar("acc/dev", dev_acc, total_batch)
                 model.train()
             
             total_batch = total_batch + 1
